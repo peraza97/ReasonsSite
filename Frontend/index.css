@@ -8,6 +8,10 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
+input[class=reason], select {
+    width: 15%;
+}
+
 input[type=password], select {
     width: 10%;
     padding: 5px 10px;
@@ -30,6 +34,12 @@ button[type=button] {
 
 button[class=login] {
     background-color: #4CAF50;
+    color: white;
+}
+
+button[class=add] {
+    width: 15%;
+    background-color:  #4CAF50;
     color: white;
 }
 

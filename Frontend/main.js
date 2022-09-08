@@ -82,3 +82,15 @@ async function ResetReasonsView(){
         ShowText(reasonTextBox, "");
     }
 }
+
+async function AddReasonView(reason){
+    let reasonTextBox = document.getElementById("Reasonbox");
+
+    var sucess = await instance.AddReason(reason);
+    if (!sucess) {
+        ShowMaintenanceText(reasonTextBox);
+    }
+    else {
+        ShowText(reasonTextBox, "ReasonAdded");
+    }
+}
