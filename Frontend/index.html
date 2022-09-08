@@ -18,11 +18,12 @@
         onclick="GetToken(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
     </div>
     <div id="reasonsButtons" style="display:none">
-        <button class="load" id="ReasonsButton" type="button" onclick="GetReason()">Load a reason</button>
-        <button class="reset" id="ResetButton" type="button"  onclick="ResetReasons()">Reset reasons</button>
+        <button class="load" id="ReasonsButton" type="button" onclick="LoadReasonView()">Load a reason</button>
+        <button class="reset" id="ResetButton" type="button"  onclick="ResetReasonsView()">Reset reasons</button>
     </div>
     <div class="textBox" style="display:none" id="Reasonbox">I love you because ...</div>
 </body>
 <script defer src="cookie.js"></script>
+<script async src="AwsApi.js"></script>
 <script async src="main.js"></script>
 </html>

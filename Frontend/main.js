@@ -1,3 +1,6 @@
+const instance = new AwsApi();
+Object.freeze(instance);
+
 async function GetToken(userName, password) {
     try{
         const _body = {
@@ -34,133 +37,6 @@ async function GetToken(userName, password) {
     }
 }
 
-async function GetReason() 
-{
-    // Get the cookie
-    let token = GetCookie("reasonsToken")
-
-    if (token == ""){
-        alert("Login first");
-        return;
-    }
-
-    let reasonTextBox = document.getElementById("Reasonbox");
-    ShowText(reasonTextBox, "...");
-
-    try{
-        let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons', {
-            headers: {
-                'Authorization' : token
-            }
-        });
-
-        let jsonResult = await response.json(); 
-        let reasons = JSON.parse(jsonResult.body);
-
-        if (!Array.isArray(reasons) || !reasons.length){
-            console.log("Missing reason");
-            console.log("data: " + reasons);
-            ShowMaintenanceText(reasonTextBox);
-            return;
-        }
-
-        if (await MarkReason(reasons[0].reasonId, true)){
-            console.log("Updated reason: " + reasons[0].reason);
-            ShowText(reasonTextBox, reasons[0].reason);
-        } 
-        else{
-            console.log("Failed to update reason");
-            ShowMaintenanceText(reasonTextBox);
-            return;
-        }
-    }
-    catch (error){
-        console.log(error);
-        ShowMaintenanceText(reasonTextBox);
-    }
-}
-
-async function MarkReason(reasonId, seen){
-    // Get the cookie
-    let token = GetCookie("reasonsToken")
-
-    if (token == ""){
-        console.log("missing token");
-        return false;
-    }
-
-    if (reasonId == "" || typeof seen !== 'boolean'){
-        console.log(reasonId + ' ' + seen);
-        return false;
-    }
-
-    let success = false;
-    try{
-        let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons/' + reasonId,
-        {
-            method : "PUT",
-            headers: {
-                'Authorization' : token,
-                'Content-Type' : "application/json"
-            },
-            body : JSON.stringify( { "seen" : seen} ),
-        });
-
-        let result = await response.json(); 
-        success = (result.statusCode == 200);
-    }
-    catch (error){
-        console.log(error)
-    }
-
-    return success;
-}
-
-async function ResetReasons(){
-    // Get the cookie
-    let token = GetCookie("reasonsToken")
-
-    if (token == ""){
-        console.log("missing token");
-        return false;
-    }
-
-    let reasonTextBox = document.getElementById("Reasonbox");
-
-    ShowText(reasonTextBox, "Resetting reasons");
-    try{
-        let done = false
-        while (!done){
-            let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons?count=10&seen=true', {
-                headers: {
-                    'Authorization' : token
-                }
-            });
-
-            let jsonResult = await response.json(); 
-            let reasons = JSON.parse(jsonResult.body);
-
-            if (!Array.isArray(reasons) || !reasons.length){
-                console.log("no more reasons");
-                done = true;
-            }
-            else{
-                console.log("resetting " + reasons.length);
-                for (const reason of reasons){
-                    await MarkReason(reason.reasonId, false);
-                }
-            }
-        }
-    }
-    catch (error){
-        console.log(error);
-        ShowMaintenanceText(reasonTextBox);
-    }
-    
-    ShowText(reasonTextBox, "");
-    return;
-}
-
 function ShowText(reasonTextBox, text){
     reasonTextBox.style.display = "block";
     reasonTextBox.innerHTML  = text
@@ -176,5 +52,33 @@ function showPassword(){
       x.type = "text";
     } else {
       x.type = "password";
+    }
+}
+
+async function LoadReasonView()
+{
+    let reasonTextBox = document.getElementById("Reasonbox");
+    ShowText(reasonTextBox, "...");
+
+    let reason = await instance.GetReason();
+
+    if (reason == ""){
+        ShowMaintenanceText(reasonTextBox);
+    }
+    else {
+        ShowText(reasonTextBox, reason);
+    }
+}
+
+async function ResetReasonsView(){
+    let reasonTextBox = document.getElementById("Reasonbox");
+    ShowText(reasonTextBox, "Resetting reasons");
+
+    var sucess = await instance.ResetReasons();
+    if (!sucess) {
+        ShowMaintenanceText(reasonTextBox);
+    }
+    else {
+        ShowText(reasonTextBox, "");
     }
 }
