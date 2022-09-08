@@ -24,7 +24,7 @@ async function GetToken(userName, password) {
 
         // hide the login section
         document.getElementById("login").style.display = "none";
-        
+
         // Show the reasons button
         document.getElementById("reasonsButtons").style.display = "block";
     }
@@ -45,6 +45,7 @@ async function GetReason()
     }
 
     let reasonTextBox = document.getElementById("Reasonbox");
+    ShowText(reasonTextBox, "...");
 
     try{
         let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons', {
@@ -124,6 +125,9 @@ async function ResetReasons(){
         return false;
     }
 
+    let reasonTextBox = document.getElementById("Reasonbox");
+
+    ShowText(reasonTextBox, "Resetting reasons");
     try{
         let done = false
         while (!done){
@@ -149,9 +153,11 @@ async function ResetReasons(){
         }
     }
     catch (error){
-        console.log(error)
+        console.log(error);
+        ShowMaintenanceText(reasonTextBox);
     }
     
+    ShowText(reasonTextBox, "");
     return;
 }
 
