@@ -22,9 +22,11 @@ async function GetToken(userName, password) {
         // Set the cookie 
         SetCookie("reasonsToken", result.AuthenticationResult.AccessToken, 1);
 
+        // hide the login section
+        document.getElementById("login").style.display = "none";
+        
         // Show the reasons button
-        document.getElementById("ReasonsButton").style.display = "block";
-        document.getElementById("ResetButton").style.display = "block";
+        document.getElementById("reasonsButtons").style.display = "block";
     }
     catch (error) {
         console.log(error)
@@ -153,7 +155,6 @@ async function ResetReasons(){
     return;
 }
 
-
 function ShowText(reasonTextBox, text){
     reasonTextBox.style.display = "block";
     reasonTextBox.innerHTML  = text
@@ -161,4 +162,13 @@ function ShowText(reasonTextBox, text){
 
 function ShowMaintenanceText(reasonTextBox){
     ShowText(reasonTextBox,"<img src=\"workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">Contact your nearest bean</img>");
+}
+
+function showPassword(){
+    var x = document.getElementById("PassField");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
 }

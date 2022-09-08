@@ -1,42 +1,27 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+    <link rel="stylesheet" href="index.css">
+</head>
 <body>
-    <h2>Reasons why I love you</h2><br>
-    <div class="login">
-        <form id="login">
-            <label>
-                <b>User Name</b>
-            </label>
+    <h1>Reasons why I love you</h2>
+    <div id="login">
+        <form id="loginForm">
+            <label><b>UserName</b></label>
             <input id="UnameField" type="text" name="Uname" placeholder="Username">
-            <br><br>
-            <label>
-                <b>Password</b>
-            </label>
+    
+            <label><b>Password</b></label>
             <input id="PassField" type="Password" name="Pass" placeholder="">
-            <br><br>
-            <button id="LoginButton" type="button"
-                onclick="GetToken(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
-            <br><br>
+            <input type="checkbox" onclick="showPassword()">Show Password 
         </form>
+        <button class="login" id="LoginButton" type="button"
+        onclick="GetToken(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
     </div>
-    <div class="Reasons">
-        <button id="ReasonsButton" type="button" style="display:none" onclick="GetReason()">Load a reason</button>
-        <button id="ResetButton" type="button" style="display:none" onclick="ResetReasons()">Reset reasons</button>
+    <div id="reasonsButtons" style="display:none">
+        <button class="load" id="ReasonsButton" type="button" onclick="GetReason()">Load a reason</button>
+        <button class="reset" id="ResetButton" type="button"  onclick="ResetReasons()">Reset reasons</button>
     </div>
-    <div style="background: ghostwhite; 
-        margin-top: 15px;
-        border-radius: 10px;
-        font-size: 20px; 
-        padding: 5px;
-        border: 1px solid lightgray; 
-        width: 15%;
-        display: none;
-        vertical-align: middle;
-        text-align: center;"
-        id="Reasonbox">
-        I love you because ...
-    </div>
+    <div class="textBox" style="display:none" id="Reasonbox">I love you because ...</div>
 </body>
 <script defer src="cookie.js"></script>
 <script async src="main.js"></script>

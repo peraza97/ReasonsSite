@@ -1,0 +1,58 @@
+input[type=text], select {
+    width: 10%;
+    padding: 5px 10px;
+    margin: 6px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+    width: 10%;
+    padding: 5px 10px;
+    margin: 6px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type=button] {
+    width: 10%;
+    padding: 5px 10px;
+    margin: 6px 0;
+    border: none;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[class=login] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button[class=load] {
+    width: 15%;
+    background-color: rgb(61, 209, 165);
+    color: white;
+}
+
+button[class=reset] {
+    width: 15%;
+    background-color: red;
+    color: white;
+}
+
+.textBox {
+    background: ghostwhite; 
+    margin-top: 15px;
+    border-radius: 10px;
+    font-size: 20px; 
+    padding: 5px;
+    border: 1px solid lightgray; 
+    width: 15%;
+    vertical-align: middle;
+    text-align: center;
+}
