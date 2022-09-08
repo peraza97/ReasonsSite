@@ -24,6 +24,7 @@ async function GetToken(userName, password) {
 
         // Show the reasons button
         document.getElementById("ReasonsButton").style.display = "block";
+        document.getElementById("ResetButton").style.display = "block";
     }
     catch (error) {
         console.log(error)
@@ -111,6 +112,47 @@ async function MarkReason(reasonId, seen){
 
     return success;
 }
+
+async function ResetReasons(){
+    // Get the cookie
+    let token = GetCookie("reasonsToken")
+
+    if (token == ""){
+        console.log("missing token");
+        return false;
+    }
+
+    try{
+        let done = false
+        while (!done){
+            let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons?count=10&seen=true', {
+                headers: {
+                    'Authorization' : token
+                }
+            });
+
+            let jsonResult = await response.json(); 
+            let reasons = JSON.parse(jsonResult.body);
+
+            if (!Array.isArray(reasons) || !reasons.length){
+                console.log("no more reasons");
+                done = true;
+            }
+            else{
+                console.log("resetting " + reasons.length);
+                for (const reason of reasons){
+                    await MarkReason(reason.reasonId, false);
+                }
+            }
+        }
+    }
+    catch (error){
+        console.log(error)
+    }
+    
+    return;
+}
+
 
 function ShowText(reasonTextBox, text){
     reasonTextBox.style.display = "block";
