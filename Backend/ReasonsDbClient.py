@@ -21,7 +21,7 @@ class ReasonsDbClient(DbClient):
     def QueryItem(self, seen):
         items = self.QueryItems(seen)
 
-        if len(items) != 0:
+        if items:
             return items[0]
         
         return None
@@ -33,16 +33,16 @@ class ReasonsDbClient(DbClient):
                 Key('reasonId').eq(key))['Items']
 
     def InsertItem(self, item):
-        return self.table.put_item(Item=item)    
+        return self.table.put_item(Item = item)    
 
-    def CreateItem(self, reason):
-        return {
-            'reasonId': str(uuid.uuid4()), 
-            'reason': reason, 
-            'seen': False
-        }  
+    def CreateItem(self, **kwargs):
+        return {'reasonId': str(uuid.uuid4()), 'reason':kwargs['reason'], 'seen': False}  
 
     def UpdateItem(self, key, seen):
+        item = self.GetItem(key)
+        if not item:
+            raise Exception("{0} is not present".format(key)) 
+        
         return self.table.update_item(
             Key={'reasonId': key},
             UpdateExpression="set seen = :r",

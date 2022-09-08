@@ -55,6 +55,7 @@ async function GetReason()
 
         if (!Array.isArray(reasons) || !reasons.length){
             console.log("Missing reason");
+            console.log("data: " + reasons);
             ShowMaintenanceText(reasonTextBox);
             return;
         }
