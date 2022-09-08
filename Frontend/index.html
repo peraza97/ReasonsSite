@@ -12,7 +12,7 @@
     
             <label><b>Password</b></label>
             <input id="PassField" type="Password" name="Pass" placeholder="">
-            <input type="checkbox" onclick="showPassword()">Show Password 
+            <input type="checkbox" onclick="showPassword()" autocomplete="off">Show Password 
         </form>
         <button class="login" id="LoginButton" type="button"
         onclick="GetToken(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
