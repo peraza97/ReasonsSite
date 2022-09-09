@@ -3,6 +3,7 @@ import json
 import boto3
 import uuid
 from boto3.dynamodb.conditions import Key,Attr
+from datetime import datetime, timezone
 
 class ReasonsDbClient(DbClient):
     def __init__(self):
@@ -35,8 +36,14 @@ class ReasonsDbClient(DbClient):
     def InsertItem(self, item):
         return self.table.put_item(Item = item)    
 
-    def CreateItem(self, **kwargs):
-        return {'reasonId': str(uuid.uuid4()), 'reason':kwargs['reason'], 'seen': False}  
+    def CreateItem(self, reason):
+        return {
+            'reasonId': str(uuid.uuid4()), 
+            'reason': reason, 
+            'seen': False,
+            'createdTime' : datetime.now(timezone.utc).isoformat(),
+            'lastUpdatedTime' : datetime.now(timezone.utc).isoformat()
+        } 
 
     def UpdateItem(self, key, seen):
         item = self.GetItem(key)
@@ -45,8 +52,8 @@ class ReasonsDbClient(DbClient):
         
         return self.table.update_item(
             Key={'reasonId': key},
-            UpdateExpression="set seen = :r",
-            ExpressionAttributeValues={':r': seen})
+            UpdateExpression="set seen = :s, lastUpdatedTime = :u",
+            ExpressionAttributeValues= {':s': seen, ':u' : datetime.now(timezone.utc).isoformat() })
     
     def DeleteItem(self, item):
         pass
