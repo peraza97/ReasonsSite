@@ -28,8 +28,14 @@ async function GetToken(userName, password) {
         // hide the login section
         document.getElementById("login").style.display = "none";
 
-        // Show the reasons button
-        document.getElementById("reasonsButtons").style.display = "block";
+        admin = location.href.substring(location.href.lastIndexOf("?")+1)
+
+        if (admin == "admin") {
+            // Show the admin buttons
+            document.getElementById("AdminSection").style.display = "block";
+        }
+        // Show the reasons buttons
+        document.getElementById("ReasonSection").style.display = "block";
     }
     catch (error) {
         console.log(error)

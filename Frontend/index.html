@@ -17,13 +17,16 @@
         <button class="login" id="LoginButton" type="button"
         onclick="GetToken(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
     </div>
-    <div id="reasonsButtons" style="display:none">
+    <div id="AdminSection" style="display:none">
         <input id="AddField" type="text" class="reason" name="Add" placeholder="Enter a reason to add">
         <button class="add" id="AddReasonButton" type="button" onclick="AddReasonView(document.getElementById('AddField').value)">Add a reason</button>
-        <button class="load" id="ReasonsButton" type="button" onclick="LoadReasonView()">Load a reason</button>
         <button class="reset" id="ResetButton" type="button"  onclick="ResetReasonsView()">Reset reasons</button>
     </div>
-    <div class="textBox" style="display:none" id="Reasonbox">I love you because ...</div>
+    <div id="ReasonSection" style="display:none">
+        <button class="load" id="ReasonsButton" type="button" onclick="LoadReasonView()">Load a reason</button>
+        <div class="textBox" id="Reasonbox">I love you because ...</div>
+    </div>
+
 </body>
 <script defer src="src/cookie.js"></script>
 <script async src="src/AwsApi.js"></script>
