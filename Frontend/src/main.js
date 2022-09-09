@@ -99,4 +99,6 @@ async function AddReasonView(reason) {
         console.log(error)
         ShowMaintenanceText(reasonTextBox);
     }
+    
+    document.getElementById('AddField').value = ''
 }
