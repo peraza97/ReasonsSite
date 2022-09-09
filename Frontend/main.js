@@ -37,16 +37,16 @@ async function GetToken(userName, password) {
     }
 }
 
-function ShowText(reasonTextBox, text){
+function ShowText(reasonTextBox, text) {
     reasonTextBox.style.display = "block";
     reasonTextBox.innerHTML  = text
 }
 
-function ShowMaintenanceText(reasonTextBox){
+function ShowMaintenanceText(reasonTextBox) {
     ShowText(reasonTextBox,"<img src=\"workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">Contact your nearest bean</img>");
 }
 
-function showPassword(){
+function showPassword() {
     var x = document.getElementById("PassField");
     if (x.type === "password") {
       x.type = "text";
@@ -55,42 +55,42 @@ function showPassword(){
     }
 }
 
-async function LoadReasonView()
-{
+async function LoadReasonView() {
     let reasonTextBox = document.getElementById("Reasonbox");
     ShowText(reasonTextBox, "...");
 
-    let reason = await instance.GetReason();
-
-    if (reason == ""){
-        ShowMaintenanceText(reasonTextBox);
-    }
-    else {
+    try {
+        let reason = await instance.GetReason();
         ShowText(reasonTextBox, reason);
+    }
+    catch(error) {
+        console.log(error)
+        ShowMaintenanceText(reasonTextBox);
     }
 }
 
-async function ResetReasonsView(){
+async function ResetReasonsView() {
     let reasonTextBox = document.getElementById("Reasonbox");
     ShowText(reasonTextBox, "Resetting reasons");
 
-    var sucess = await instance.ResetReasons();
-    if (!sucess) {
-        ShowMaintenanceText(reasonTextBox);
-    }
-    else {
+    try {
+        await instance.ResetReasons();
         ShowText(reasonTextBox, "");
+    }
+    catch(error) {
+        console.log(error)
+        ShowMaintenanceText(reasonTextBox);
     }
 }
 
-async function AddReasonView(reason){
+async function AddReasonView(reason) {
     let reasonTextBox = document.getElementById("Reasonbox");
-
-    var sucess = await instance.AddReason(reason);
-    if (!sucess) {
-        ShowMaintenanceText(reasonTextBox);
+    try {
+        await instance.AddReason(reason);
+        ShowText(reasonTextBox, "Reason Added");
     }
-    else {
-        ShowText(reasonTextBox, "ReasonAdded");
+    catch(error) {
+        console.log(error)
+        ShowMaintenanceText(reasonTextBox);
     }
 }

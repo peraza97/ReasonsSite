@@ -2,52 +2,56 @@ class AwsApi {
     constructor() {
         if(! AwsApi.instance){
             AwsApi.instance = this;
+            this.baseUri = 'https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons';
           }
        
           return AwsApi.instance;
     }
 
-    async GetReason() {
+    async GetReasons(count, seen) {
         // Get the cookie
         let token = GetCookie("reasonsToken")
 
         if (token == ""){
             console.log("Login first");
-            return "";
+            throw  "LoginFirst";
         }
 
-        try {
-            let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons', {
-                headers: {
-                    'Authorization' : token
-                }
-            });
-
-            let jsonResult = await response.json(); 
-            let reasons = JSON.parse(jsonResult.body);
-
-            // validate the result is valid
-            if (!Array.isArray(reasons) || !reasons.length) {
-                console.log("Missing reason");
-                console.log("data: " + reasons);
-                return "";
+        let response = await fetch(this.BuildGetUri(count, seen), {
+            headers: {
+                'Authorization' : token
             }
+        });
 
-            // validate we can mark reason as seen before displaying
-            if (await this.MarkReason(reasons[0].reasonId, true)) {
-                console.log("Updated reason: " + reasons[0].reason);
-                return reasons[0].reason;
-            } 
-            else {
-                console.log("Failed to update reason");
-                return "";
-            }
-        }
-        catch (error) {
-            console.log(error);
+        let jsonResult = await response.json(); 
+        let reasons = JSON.parse(jsonResult.body);
+
+        // validate the result is valid
+        if (!Array.isArray(reasons)) {
+            console.log("data: " + reasons);
+            throw "InvalidData";
         }
 
-        return "";
+        return reasons
+    }
+
+    async GetReason() {
+
+        let reasons = await this.GetReasons();
+
+        if (!reasons.length) {
+            throw "MissingData";
+        }
+
+        // validate we can mark reason as seen before displaying
+        if (await this.MarkReason(reasons[0].reasonId, true)) {
+            console.log("Updated reason: " + reasons[0].reason);
+            return reasons[0].reason;
+        } 
+        else {
+            console.log("Failed to update reason");
+            throw "FailedUpdateReason";
+        }
     }
 
     async MarkReason(reasonId, seen){
@@ -56,34 +60,27 @@ class AwsApi {
 
         if (token == ""){
             console.log("Login first");
-            return false;
+            throw "LoginFirst";
         }
 
         // Validate input
         if (reasonId == "" || typeof seen !== 'boolean'){
             console.log(reasonId + ' ' + seen);
-            return false;
+            return "ReasonSeenArgumentValidationFailure";
         }
 
-        try{
-            let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons/' + reasonId,
-            {
-                method : "PUT",
-                headers: {
-                    'Authorization' : token,
-                    'Content-Type' : "application/json"
-                },
-                body : JSON.stringify( { "seen" : seen} ),
-            });
-    
-            let result = await response.json(); 
-            return result.statusCode == 200;
-        }
-        catch (error){
-            console.log(error)
-        }
-    
-        return false;
+        let response = await fetch(this.baseUri + '/' + reasonId,
+        {
+            method : "PUT",
+            headers: {
+                'Authorization' : token,
+                'Content-Type' : "application/json"
+            },
+            body : JSON.stringify( { "seen" : seen} ),
+        });
+
+        let result = await response.json(); 
+        return result.statusCode == 200;
     }
 
     async ResetReasons(){ 
@@ -92,69 +89,76 @@ class AwsApi {
 
         if (token == ""){
             console.log("Login first");
-            return false;
+            throw "LoginFirst";
         }
 
-        try{
-            let done = false
-            while (!done){
-                let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons?count=10&seen=true', {
-                    headers: {
-                        'Authorization' : token
-                    }
-                });
-    
-                let jsonResult = await response.json(); 
-                let reasons = JSON.parse(jsonResult.body);
-    
-                // Validate the input
-                if (!Array.isArray(reasons) || !reasons.length){
-                    console.log("no more reasons");
-                    done = true;
-                }
-                else{
-                    console.log("resetting " + reasons.length);
-                    for (const reason of reasons){
-                        await this.MarkReason(reason.reasonId, false);
-                    }
+        let done = false
+        while (!done){
+            let reasons = await this.GetReasons(10, true);
+
+            if (!reasons.length){
+                console.log("no more reasons");
+                done = true;
+            }
+            else{
+                console.log("resetting " + reasons.length);
+                for (const reason of reasons){
+                    await this.MarkReason(reason.reasonId, false);
                 }
             }
-    
-            return true;
         }
-        catch (error){
-            console.log(error);
-            return false;
-        }
-        
-        return true;
     }
 
     async AddReason(reason){   
         // Get the cookie
         let token = GetCookie("reasonsToken")
 
-        if (token == ""){
+        if (token == "") {
             console.log("Login first");
-            return false;
+            throw "LoginFirst";
         }
         
-        if (reason == ""){
+        if (reason == "") {
             console.log("Cant add empty reason");
-            return false;
+            throw "EmptyReason";
         }
     
-        let response = await fetch('https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons/',
-        {
+        let response = await fetch(this.baseUri, {
             method : "POST",
             headers: {
                 'Authorization' : token,
                 'Content-Type' : "application/json"
             },
-            body : JSON.stringify( { "reason" : reason} ),
+            body : JSON.stringify( { "reason" : reason } ),
         });
     
         let result = await response.json(); 
         return result.statusCode == 200;
+    }
+
+    BuildGetUri(count, seen) {
+        let uri = this.baseUri;
+        let params = new URLSearchParams();
+        
+        // Validate input
+        if (count && count.length !== 0 ) {
+            params.append("count", count);
+        }
+
+        if (typeof seen === 'boolean') {
+            params.append("seen", seen);
+        }
+
+        let paramStr = params.toString();
+        
+        if (paramStr.length === 0) {
+            uri = this.baseUri;
+        }
+        else {
+            uri = this.baseUri + '?' + paramStr;
+        }
+
+        console.log(uri);
+        return uri;
     }
 }
