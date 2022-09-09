@@ -43,7 +43,7 @@ function ShowText(reasonTextBox, text) {
 }
 
 function ShowMaintenanceText(reasonTextBox) {
-    ShowText(reasonTextBox,"<img src=\"workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">Contact your nearest bean</img>");
+    ShowText(reasonTextBox,"<img src=\"imgs/workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">Contact your nearest bean</img>");
 }
 
 function showPassword() {
