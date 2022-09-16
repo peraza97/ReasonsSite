@@ -14,9 +14,14 @@ function CheckCookie() {
 async function Login(userName, password) {
     let token = GetToken(userName, password);
 
-    // Set the cookie 
-    SetCookie("reasonsToken", token, 1);
-    HideLoginScreen();
+    if (token == "") {
+        alert("Wrong username/or password");
+    }
+    else {
+        // Set the cookie 
+        SetCookie("reasonsToken", token, 1);
+        HideLoginScreen();
+    }
 }
 
 function HideLoginScreen() {
@@ -118,6 +123,7 @@ async function GetToken(userName, password) {
     }
     catch (error) {
         console.log(error)
-        alert("Wrong username/or password")
     }
+
+    return "";
 }
