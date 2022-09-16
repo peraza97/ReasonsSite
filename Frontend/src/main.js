@@ -25,12 +25,16 @@ async function GetToken(userName, password) {
             
             // Set the cookie 
             SetCookie("reasonsToken", result.AuthenticationResult.AccessToken, 1);
+            console.log("Cookie set");
+        }
+        else {
+            console.log("Cookie already found");
         }
 
         // hide the login section
         document.getElementById("login").style.display = "none";
 
-        admin = location.href.substring(location.href.lastIndexOf("?")+1)
+        admin = location.href.substring(location.href.lastIndexOf("?")+1);
 
         if (admin == "admin") {
             // Show the admin buttons
