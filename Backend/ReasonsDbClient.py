@@ -36,14 +36,16 @@ class ReasonsDbClient(DbClient):
     def InsertItem(self, item):
         return self.table.put_item(Item = item)    
 
-    def CreateItem(self, reason):
+    def CreateItem(self, reason, toUser, fromUser):
         return {
             'reasonId': str(uuid.uuid4()), 
             'reason': reason, 
             'seen': False,
             'createdTime' : datetime.now(timezone.utc).isoformat(),
-            'lastUpdatedTime' : datetime.now(timezone.utc).isoformat()
-        } 
+            'lastUpdatedTime' : datetime.now(timezone.utc).isoformat(),
+            'to' : toUser,
+            'from': fromUser
+        }
 
     def UpdateItem(self, key, seen):
         item = self.GetItem(key)

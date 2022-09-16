@@ -1,6 +1,6 @@
-function SetCookie(cname, cvalue, exdays) {
+function SetCookie(cname, cvalue, exHours) {
     const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + (exHours * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires;
 }
