@@ -12,7 +12,7 @@ function CheckCookie() {
 }
 
 async function Login(userName, password) {
-    let token = GetToken(userName, password);
+    let token = await GetToken(userName, password);
 
     if (token == "") {
         alert("Wrong username/or password");
