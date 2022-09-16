@@ -1,52 +1,36 @@
 const instance = new AwsApi();
 Object.freeze(instance);
 
-async function GetToken(userName, password) {
-    try{
-        if (GetCookie("reasonsToken") == "") {
-            const _body = {
-                "AuthParameters": {
-                    "USERNAME" : userName,
-                    "PASSWORD" : password
-                },
-                "AuthFlow" : "USER_PASSWORD_AUTH",
-                "ClientId" : "5e5jou42audpmnpnj666f0fk93"
-            }
-            const response = await fetch('https://cognito-idp.us-east-2.amazonaws.com:443',{
-                method : "POST",
-                headers : {
-                    "Content-type": "application/x-amz-json-1.1",
-                    "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth"
-                },
-                body : JSON.stringify(_body),
-            });
-    
-            const result = await response.json(); 
-            
-            // Set the cookie 
-            SetCookie("reasonsToken", result.AuthenticationResult.AccessToken, 1);
-            console.log("Cookie set");
-        }
-        else {
-            console.log("Cookie already found");
-        }
-
-        // hide the login section
-        document.getElementById("login").style.display = "none";
-
-        admin = location.href.substring(location.href.lastIndexOf("?")+1);
-
-        if (admin == "admin") {
-            // Show the admin buttons
-            document.getElementById("AdminSection").style.display = "block";
-        }
-        // Show the reasons buttons
-        document.getElementById("ReasonSection").style.display = "block";
+function CheckCookie() {
+    if (GetCookie("reasonsToken") == ""){
+        console.log("Cookie not present");
     }
-    catch (error) {
-        console.log(error)
-        alert("Wrong username/or password")
+    else {
+        console.log("Cookie present");
+        HideLoginScreen();
     }
+}
+
+async function Login(userName, password) {
+    let token = GetToken(userName, password);
+
+    // Set the cookie 
+    SetCookie("reasonsToken", token, 1);
+    HideLoginScreen();
+}
+
+function HideLoginScreen() {
+    // hide the login section
+    document.getElementById("login").style.display = "none";
+
+    admin = location.href.substring(location.href.lastIndexOf("?")+1);
+
+    if (admin == "admin") {
+        // Show the admin buttons
+        document.getElementById("AdminSection").style.display = "block";
+    }
+    // Show the reasons buttons
+    document.getElementById("ReasonSection").style.display = "block";
 }
 
 function ShowText(reasonTextBox, text) {
@@ -107,4 +91,33 @@ async function AddReasonView(reason) {
     }
     
     document.getElementById('AddField').value = ''
+}
+
+async function GetToken(userName, password) {
+    try{
+        const _body = {
+            "AuthParameters": {
+                "USERNAME" : userName,
+                "PASSWORD" : password
+            },
+            "AuthFlow" : "USER_PASSWORD_AUTH",
+            "ClientId" : "5e5jou42audpmnpnj666f0fk93"
+        }
+        const response = await fetch('https://cognito-idp.us-east-2.amazonaws.com:443',{
+            method : "POST",
+            headers : {
+                "Content-type": "application/x-amz-json-1.1",
+                "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth"
+            },
+            body : JSON.stringify(_body),
+        });
+
+        const result = await response.json(); 
+        
+        return result.AuthenticationResult.AccessToken;
+    }
+    catch (error) {
+        console.log(error)
+        alert("Wrong username/or password")
+    }
 }

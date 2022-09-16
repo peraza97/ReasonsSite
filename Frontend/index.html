@@ -3,19 +3,18 @@
 <head>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body onload="CheckCookie()">
     <h1>Reasons why I love you</h2>
     <div id="login">
         <form id="loginForm">
             <label><b>UserName</b></label>
             <input id="UnameField" type="text" name="Uname" placeholder="Username">
-    
             <label><b>Password</b></label>
             <input id="PassField" type="Password" name="Pass" placeholder="">
             <input type="checkbox" onclick="showPassword()" autocomplete="off">Show Password 
         </form>
         <button class="login" id="LoginButton" type="button"
-        onclick="GetToken(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
+        onclick="Login(document.getElementById('UnameField').value, document.getElementById('PassField').value)">Login</button>
     </div>
     <div id="AdminSection" style="display:none">
         <input id="AddField" type="text" class="reason" name="Add" placeholder="Enter a reason to add">
