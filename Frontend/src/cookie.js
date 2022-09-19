@@ -2,7 +2,8 @@ function SetCookie(cname, cvalue, exHours) {
     const d = new Date();
     d.setTime(d.getTime() + (exHours * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires;
+    const domain = "domain=peraza97.github.io;path=/";
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";" + domain;
 }
   
 function GetCookie(cname) {
