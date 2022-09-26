@@ -12,6 +12,10 @@ input[class=reason], select {
     width: 15%;
 }
 
+input[class=request], select {
+    width: 15%;
+}
+
 input[type=password], select {
     width: 10%;
     padding: 5px 10px;

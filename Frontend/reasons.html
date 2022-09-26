@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body onload="ReasonsPagePreValidation()">
+    <h1>Reasons why I love you</h2>
+    <div id="AdminSection" style="display:none">
+        <input id="AddField" type="text" class="reason" name="Add" placeholder="Enter a reason to add">
+        <button class="add" id="AddReasonButton" type="button" onclick="AddReasonView(document.getElementById('AddField').value)">Add a reason</button>
+        <button class="reset" id="ResetButton" type="button"  onclick="ResetReasonsView()">Reset reasons</button>
+    </div>
+    <div id="ReasonSection">
+        <button class="load" id="ReasonsButton" type="button" onclick="LoadReasonView()">Load a reason</button>
+        <div class="textBox" id="Reasonbox">I love you because ...</div>
+    </div>
+
+</body>
+<script defer src="src/cookie.js"></script>
+<script async src="src/AwsApi.js"></script>
+<script async src="src/main.js"></script>
+</html>
