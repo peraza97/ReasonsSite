@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h1>Requests</h2>
     <div id="AddSection">
         <input id="AddField" type="text" class="request" name="Add" placeholder="Enter a request">
+        <button class="add" id="AddRequestButton" type="button" onclick="">Add a Request</button>
     </div>
+    <span>
+        <h2 style="display:inline;margin-left:3px;margin-right:8.5%">Requests</h2>
+        <button style="font-size:15px" onclick="RefreshRequests()"><i class="fa fa-refresh"></i></button>
+    </span>
+    <div class="listBox" id="RequestList"></div>
 </body>
 <script defer src="src/cookie.js"></script>
-<script async src="src/AwsApi.js"></script>
 <script async src="src/main.js"></script>
 </html>

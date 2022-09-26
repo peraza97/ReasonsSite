@@ -95,7 +95,7 @@ function ReasonsPagePreValidation() {
 }
 //#endregion
 
-//#region Display text in view
+//#region Reasons Page
 function ShowText(reasonTextBox, text) {
     reasonTextBox.style.display = "block";
     reasonTextBox.innerHTML  = text
@@ -146,6 +146,29 @@ async function AddReasonView(reason) {
     
     document.getElementById('AddField').value = ''
 }
+//#endregion
+
+//#region Requests Page
+
+function LoadRequests() {
+    const fruits = ['Apple', 'Banana', 'Banana', 'Banana','Apple'];
+    return fruits
+}
+
+function RefreshRequests() {
+    let list = document.getElementById("RequestList");
+    list.replaceChildren()
+
+    let reqs = LoadRequests();
+    reqs.forEach((item) => {
+        let li = document.createElement("ul");
+        li.style.margin = "5px";
+        li.style.textAlign = "center";
+        li.innerText = item;
+        list.appendChild(li);
+      });
+}
+
 //#endregion
 
 function NavigateToPage(htmlPage) {
