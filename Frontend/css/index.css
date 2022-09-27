@@ -59,6 +59,12 @@ button[class=reset] {
     color: white;
 }
 
+button[class=refresh] {
+    width: 15%;
+    background-color: rgb(61, 209, 165);
+    color: white;
+}
+
 .textBox {
     background: ghostwhite; 
     margin-top: 15px;
@@ -79,10 +85,11 @@ button[class=reset] {
     font-size: 20px; 
     padding: 5px;
     border: 4px solid lightgray; 
-    width: 14%;
+    width: 30%;
     vertical-align: middle;
     text-align: center;
-    min-height: 75px;
-    max-height: 200px;
+    min-height: 125px;
+    max-height: 125px;
     overflow: scroll;
+    display: inline-block;
 }

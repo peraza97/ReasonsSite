@@ -14,7 +14,7 @@ class RequestsDbClient(DbClient):
     def QueryItems(self, complete):
         scan_kwargs = {
             'FilterExpression': Key('complete').eq(complete),
-            'ProjectionExpression': "request, requestId",
+            'ProjectionExpression': "request, requestId, complete",
         }
         
         return self.table.scan(**scan_kwargs)['Items']

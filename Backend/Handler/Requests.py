@@ -45,10 +45,7 @@ def GET(event, context, client):
     else:
         count = int(queryParams.get('count', 1))
         complete = json.loads(queryParams.get('complete', "false").lower())
-        data = client.QueryItems(complete)
-        if data:
-            response = random.sample(data, min(count, len(data)))
-
+        response = client.QueryItems(complete)
     return response
 
 def POST(event, context, client):

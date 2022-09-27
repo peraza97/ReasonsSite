@@ -1,20 +1,49 @@
+const requestsInstance = new RequestsController();
+Object.freeze(requestsInstance);
+
 //#region Requests Page
-function LoadRequests() {
-    const fruits = ['Apple', 'Banana', 'Banana', 'Banana','Apple'];
-    return fruits
+async function AddRequestView(request) {
+    try {
+        await requestsInstance.AddRequest(request);
+    }
+    catch(error) {
+        console.log(error)
+    }
 }
 
-function RefreshRequests() {
-    let list = document.getElementById("RequestList");
-    list.replaceChildren()
+async function LoadIncompleteRequests() {
+    let reqs = await requestsInstance.GetRequests(false);
+    console.log('Found ' + reqs.length + ' incomplete request(s)');
 
-    let reqs = LoadRequests();
+    let iclist = document.getElementById("RequestIncompleteList");
+    iclist.replaceChildren()
+
     reqs.forEach((item) => {
         let li = document.createElement("ul");
         li.style.margin = "5px";
         li.style.textAlign = "center";
-        li.innerText = item;
-        list.appendChild(li);
+        li.innerText = item.requestTask;
+        iclist.appendChild(li);
       });
+}
+
+async function LoadCompleteRequests() {
+    let reqs = await requestsInstance.GetRequests(true);
+    console.log('Found ' + reqs.length + ' complete request(s)');
+
+    let clist = document.getElementById("RequestCompleteList");
+    clist.replaceChildren()
+
+    reqs.forEach((item) => {
+        let li = document.createElement("ul");
+        li.style.margin = "5px";
+        li.style.textAlign = "center";
+        li.innerHTML = item.requestTask.strike();
+        clist.appendChild(li);
+        });    
+}
+
+async function RefreshRequests() {
+    await Promise.all([LoadIncompleteRequests(), LoadCompleteRequests()]);
 }
 //#endregion
