@@ -1,7 +1,7 @@
 const reasonsInstance = new ReasonsController();
 Object.freeze(reasonsInstance);
 
-// Validation for index.html
+// Validation
 function ReasonsPagePreValidation() {
     if (CheckCookie() == true) {
         const urlSearchParams = new URLSearchParams(window.location.search);

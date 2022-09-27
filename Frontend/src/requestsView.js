@@ -1,6 +1,10 @@
 const requestsInstance = new RequestsController();
 Object.freeze(requestsInstance);
 
+function RequestsPagePreValidation() {
+    CheckCookie()
+}
+
 //#region Requests Page
 async function AddRequestView(request) {
     try {

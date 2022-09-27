@@ -2,7 +2,7 @@ class ReasonsController {
     constructor() {
         if(! ReasonsController.instance){
             ReasonsController.instance = this;
-            this.baseUri = 'https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons';
+            this.baseUri = 'https://lq3b28bkba.execute-api.us-east-2.amazonaws.com/Development/reasons';
           }
        
           return ReasonsController.instance;
