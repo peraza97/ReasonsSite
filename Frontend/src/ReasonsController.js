@@ -1,11 +1,11 @@
-class AwsApi {
+class ReasonsController {
     constructor() {
-        if(! AwsApi.instance){
-            AwsApi.instance = this;
+        if(! ReasonsController.instance){
+            ReasonsController.instance = this;
             this.baseUri = 'https://ipbvxha6wf.execute-api.us-east-2.amazonaws.com/Development/reasons';
           }
        
-          return AwsApi.instance;
+          return ReasonsController.instance;
     }
 
     async GetReasons(count, seen) {
