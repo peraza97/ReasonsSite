@@ -40,7 +40,7 @@ class ReasonsController {
         let reasons = await this.GetReasons();
 
         if (!reasons.length) {
-            throw "MissingData";
+            return null;
         }
 
         // validate we can mark reason as seen before displaying

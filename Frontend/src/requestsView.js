@@ -1,4 +1,4 @@
-const requestsInstance = new RequestsController();
+const requestsInstance = new RequestsController ();
 Object.freeze(requestsInstance);
 
 function RequestsPagePreValidation() {
@@ -31,23 +31,7 @@ async function LoadIncompleteRequests() {
       });
 }
 
-async function LoadCompleteRequests() {
-    let reqs = await requestsInstance.GetRequests(true);
-    console.log('Found ' + reqs.length + ' complete request(s)');
-
-    let clist = document.getElementById("RequestCompleteList");
-    clist.replaceChildren()
-
-    reqs.forEach((item) => {
-        let li = document.createElement("ul");
-        li.style.margin = "5px";
-        li.style.textAlign = "center";
-        li.innerHTML = item.requestTask.strike();
-        clist.appendChild(li);
-        });    
-}
-
 async function RefreshRequests() {
-    await Promise.all([LoadIncompleteRequests(), LoadCompleteRequests()]);
+    await LoadIncompleteRequests();
 }
 //#endregion

@@ -6,14 +6,12 @@
 <body onload="RequestsPagePreValidation()">
     <div id="AddSection">
         <input id="AddField" type="text" class="request" name="Add" placeholder="Enter a request">
-        <button class="add" id="AddRequestButton" type="button" onclick="AddRequestView(document.getElementById('AddField').value)">Add a Request</button>
+        <button class="add" id="AddRequestButton" type="button" onclick="AddRequestView(document.getElementById('AddField').value)">Submit a Request</button>
         <button class="refresh" id="RereshButton" type="button"  onclick="RefreshRequests()">Refresh requests</button>
     </div>
     <div>
-        <h3>Incomplete Requests</h3>
+        <h3>Pending Requests</h3>
         <div class="listBox" id="RequestIncompleteList"></div>
-        <h3>Complete Requests</h3>
-        <div class="listBox" id="RequestCompleteList"></div>
     </div>
 </body>
 <script defer src="src/cookie.js"></script>

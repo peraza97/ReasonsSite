@@ -1,6 +1,8 @@
 const reasonsInstance = new ReasonsController();
 Object.freeze(reasonsInstance);
 
+const defaultErrorMessage = 'Contact your nearest bean' 
+
 // Validation
 function ReasonsPagePreValidation() {
     if (CheckCookie() == true) {
@@ -19,8 +21,8 @@ function ShowText(reasonTextBox, text) {
     reasonTextBox.innerHTML  = text
 }
 
-function ShowMaintenanceText(reasonTextBox) {
-    ShowText(reasonTextBox,"<img src=\"imgs/workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">Contact your nearest bean</img>");
+function ShowMaintenanceText(reasonTextBox, str) {
+    ShowText(reasonTextBox,"<img src=\"imgs/workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">${str}</img>");
 }
 
 async function LoadReasonView() {
@@ -29,11 +31,16 @@ async function LoadReasonView() {
 
     try {
         let reason = await reasonsInstance.GetReason();
-        ShowText(reasonTextBox, reason);
+        if (reason == null) {
+            ShowMaintenanceText(reasonTextBox, 'Come back soon for a new reason');
+        }
+        else {
+            ShowText(reasonTextBox, reason);
+        }
     }
     catch(error) {
         console.log(error)
-        ShowMaintenanceText(reasonTextBox);
+        ShowMaintenanceText(reasonTextBox, defaultErrorMessage);
     }
 }
 
@@ -47,7 +54,7 @@ async function ResetReasonsView() {
     }
     catch(error) {
         console.log(error)
-        ShowMaintenanceText(reasonTextBox);
+        ShowMaintenanceText(reasonTextBox, defaultErrorMessage);
     }
 }
 
@@ -59,7 +66,7 @@ async function AddReasonView(reason) {
     }
     catch(error) {
         console.log(error)
-        ShowMaintenanceText(reasonTextBox);
+        ShowMaintenanceText(reasonTextBox, defaultErrorMessage);
     }
     
     document.getElementById('AddField').value = ''
