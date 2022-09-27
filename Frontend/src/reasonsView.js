@@ -22,7 +22,7 @@ function ShowText(reasonTextBox, text) {
 }
 
 function ShowMaintenanceText(reasonTextBox, str) {
-    ShowText(reasonTextBox,"<img src=\"imgs/workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">${str}</img>");
+    ShowText(reasonTextBox,"<img src=\"imgs/workingBean.png\" width=\"45\" height=\"35\" style=\"margin: 0px 10px;vertical-align: middle;\">" + str + "</img>");
 }
 
 async function LoadReasonView() {
