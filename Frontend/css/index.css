@@ -1,7 +1,7 @@
 input[type=text], select {
-    width: 10%;
+    width: 15%;
     padding: 5px 10px;
-    margin: 6px 0;
+    margin-inline: auto;
     display: block;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -9,27 +9,29 @@ input[type=text], select {
 }
 
 input[type=password], select {
-    width: 10%;
+    width: 15%;
     padding: 5px 10px;
-    margin: 6px 0;
+    margin-inline: auto;
     display: block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
-input[class=reason], select {
-    width: 15%;
-}
-
 button[type=button] {
-    width: 10%;
+    width: 15%;
+    margin-top: 5px;
+    margin-inline: auto;
     padding: 5px 10px;
-    margin: 6px 0;
     border: none;
     display: block;
     border-radius: 4px;
     cursor: pointer;
+}
+ /* Region Different button colors */
+button[class=add] {
+    background-color:  #4CAF50;
+    color: white;
 }
 
 button[class=login] {
@@ -37,27 +39,20 @@ button[class=login] {
     color: white;
 }
 
-button[class=add] {
-    width: 15%;
-    background-color:  #4CAF50;
-    color: white;
-}
-
 button[class=load] {
-    width: 15%;
     background-color: rgb(61, 209, 165);
     color: white;
 }
 
 button[class=reset] {
-    width: 15%;
     background-color: red;
     color: white;
 }
-
+/* EndRegion */
 .textBox {
     background: ghostwhite; 
     margin-top: 15px;
+    margin-inline: auto;
     border-radius: 10px;
     font-size: 20px; 
     padding: 3px;
@@ -66,4 +61,9 @@ button[class=reset] {
     vertical-align: middle;
     text-align: center;
     min-height: 25px;
+}
+
+.login {
+    margin-inline: auto;
+    text-align: center;
 }
