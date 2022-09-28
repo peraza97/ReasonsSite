@@ -116,7 +116,7 @@ class RequestsController {
 
     BuildGetUri(complete) {
         let uri = new URL(this.baseUri);
-        let paramsUri = new URLSearchParams(url.search);
+        let paramsUri = new URLSearchParams(uri.search);
 
         // Validate input
         if (typeof complete === 'boolean') {
