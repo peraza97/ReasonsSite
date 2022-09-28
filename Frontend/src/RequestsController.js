@@ -116,15 +116,24 @@ class RequestsController {
 
     BuildGetUri(complete) {
         let uri = this.baseUri
-        let paramsUri = new URLSearchParams();
+        let params = new URLSearchParams();
 
         // Validate input
         if (typeof complete === 'boolean') {
-            paramsUri.append("complete", complete);
+            params.append("complete", complete);
         }
 
-        console.log(paramsUri);
-        return uri + '?' + paramsUri;
+        let paramStr = params.toString();
+        
+        if (paramStr.length === 0) {
+            uri = this.baseUri;
+        }
+        else {
+            uri = this.baseUri + '?' + paramStr;
+        }
+
+        console.log(uri);
+        return uri;
     }
 }
 
