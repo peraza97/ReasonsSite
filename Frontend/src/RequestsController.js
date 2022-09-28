@@ -10,7 +10,7 @@ class RequestsController {
 
     async GetRequests(complete) {
         // Get the cookie
-        let token = GetCookie("reasonsToken")
+        let token = await GetCookie("reasonsToken");
 
         if (token == ""){
             console.log("Login first");
@@ -24,6 +24,7 @@ class RequestsController {
         });
 
         let jsonResult = await response.json(); 
+        console.log('GET: ' + jsonResult.statusCode)
         let requests = JSON.parse(jsonResult.body);
 
         // validate the result is valid
@@ -35,9 +36,9 @@ class RequestsController {
         return requests
     }
 
-    async AddRequest(request){   
+    async AddRequest(request) {   
         // Get the cookie
-        let token = GetCookie("reasonsToken")
+        let token = await GetCookie("reasonsToken");
 
         if (token == "") {
             console.log("Login first");
@@ -59,6 +60,57 @@ class RequestsController {
         });
     
         let result = await response.json(); 
+        console.log('POST: ' + result.statusCode)
+        return result.statusCode == 200;
+    }
+
+    async CompleteRequest(requestId, complete) {
+        // Get the cookie
+        let token = await GetCookie("reasonsToken");
+
+        if (requestId == "") {
+            console.log("Cant complete empty requestId");
+            throw "EmptyRequestId";
+        }
+
+        let response = await fetch(this.baseUri + '/' + requestId,
+        {
+            method : "PUT",
+            headers: {
+                'Authorization' : token,
+                'Content-Type' : "application/json"
+            },
+            body : JSON.stringify( { "complete" : complete} ),
+        });
+        let result = await response.json(); 
+        console.log('PUT: ' + result.statusCode)
+        return result.statusCode == 200;
+    }
+
+    async DeleteRequest(requestId) {   
+        // Get the cookie
+        let token = await GetCookie("reasonsToken");
+
+        if (token == "") {
+            console.log("Login first");
+            throw "LoginFirst";
+        }
+        
+        if (requestId == "") {
+            console.log("Cant delete empty requestId");
+            throw "EmptyRequestId";
+        }
+    
+        let response = await fetch(this.baseUri + '/' + requestId, {
+            method : "DELETE",
+            headers: {
+                'Authorization' : token,
+                'Content-Type' : "application/json"
+            }
+        });
+    
+        let result = await response.json(); 
+        console.log('DELETE: ' + result.statusCode)
         return result.statusCode == 200;
     }
 

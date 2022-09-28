@@ -14,31 +14,31 @@ class RequestsDbClient(DbClient):
     def QueryItems(self, complete):
         scan_kwargs = {
             'FilterExpression': Key('complete').eq(complete),
-            'ProjectionExpression': "request, requestId, complete",
+            'ProjectionExpression': "requestTask, requestId, complete",
         }
         
         return self.table.scan(**scan_kwargs)['Items']
 
     def QueryItem(self, **kwargs):
         pass
-
+    
     def GetItem(self, key):
         return self.table.query(
-            ProjectionExpression="request, requestId, complete",
+            ProjectionExpression="requestTask, requestId, complete",
             KeyConditionExpression=
                 Key('requestId').eq(key))['Items']
 
     def InsertItem(self, item):
         return self.table.put_item(Item = item)    
 
-    def CreateItem(self, reason, assignedTo):
+    def CreateItem(self, request, toUser):
         return {
             'requestId': str(uuid.uuid4()), 
-            'request': reason, 
+            'requestTask': request, 
             'complete': False,
             'createdTime' : datetime.now(timezone.utc).isoformat(),
             'lastUpdatedTime' : datetime.now(timezone.utc).isoformat(),
-            'assignedTo' : assignedTo
+            'assignedTo' : toUser
         }
 
     def UpdateItem(self, key, complete):
@@ -51,5 +51,8 @@ class RequestsDbClient(DbClient):
             UpdateExpression="set complete = :s, lastUpdatedTime = :u",
             ExpressionAttributeValues= {':s': complete, ':u' : datetime.now(timezone.utc).isoformat() })
     
-    def DeleteItem(self, item):
-        pass
+    def DeleteItem(self, key):
+        item = self.GetItem(key)
+        if not item:
+            raise Exception("{0} is not present".format(key))
+        return self.table.delete_item(Key={'requestId': key})

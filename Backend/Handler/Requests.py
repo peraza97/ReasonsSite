@@ -17,6 +17,8 @@ def lambda_handler(event, context):
             response = POST(event, context, client)
         elif method == 'PUT':
             response = PUT(event, context, client)
+        elif method == 'DELETE':
+            response = DELETE(event, context, client)
         else:
             raise Exception("Unknown method: {0}".format(method))
     except Exception as e:
@@ -43,9 +45,9 @@ def GET(event, context, client):
     if requestId is not None:
         response = client.GetItem(requestId)
     else:
-        count = int(queryParams.get('count', 1))
         complete = json.loads(queryParams.get('complete', "false").lower())
         response = client.QueryItems(complete)
+
     return response
 
 def POST(event, context, client):
@@ -54,7 +56,12 @@ def POST(event, context, client):
     return "Created request:{0}".format(event['body']['request'])
 
 def PUT(event, context, client):
-    reasonId = event['params']['requestId']
-    seen = event['body']['complete']
+    requestId = event['params']['requestId']
+    complete = event['body']['complete']
     result = client.UpdateItem(key=requestId,complete=complete)
     return "Updated: {0}".format(requestId)
+    
+def DELETE(event, context, client):
+    requestId = event['params']['requestId']
+    client.DeleteItem(key=requestId)
+    return "Deleted: {0}".format(requestId)
