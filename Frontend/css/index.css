@@ -38,8 +38,7 @@ button[class=login] {
 }
 
 button[class=add] {
-    width: 30%;
-    margin-inline: auto;
+    width: 15%;
     background-color:  #4CAF50;
     color: white;
 }
