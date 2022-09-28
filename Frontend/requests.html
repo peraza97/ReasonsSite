@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/request.css">
 </head>
 <body onload="RequestsPagePreValidation()">
     <div id="AddSection">
@@ -9,7 +10,7 @@
         <button class="add" id="AddRequestButton" type="button" onclick="AddRequest(document.getElementById('AddField').value)">Submit a Request</button>
     </div>
     <div>
-        <h3 style="margin-bottom:1px;">Pending Requests</h3>
+        <h3 style="margin-bottom:1px;text-align: center;">Pending Requests</h3>
         <div class="listBox" id="RequestIncompleteList"></div>
         <button class="refresh" id="RereshButton" type="button"  onclick="RefreshRequests()">Refresh requests</button>
     </div>

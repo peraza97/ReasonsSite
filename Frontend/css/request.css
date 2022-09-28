@@ -1,0 +1,40 @@
+input[class=request], select {
+    width: 30%;
+    margin: auto;
+}
+
+button[class=refresh] {
+    width: 40%;
+    margin-inline: auto;
+    background-color: rgb(61, 209, 165);
+    color: white;
+}
+
+.listBox {
+    background: ghostwhite;
+    margin-top: 15px;
+    margin-inline: auto;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 5px;
+    border: 4px solid lightgray;
+    width: 40%;
+    text-align: center;
+    min-height: 150px;
+    max-height: 150px;
+    overflow: scroll;
+    display: block;
+}
+
+ul {
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    align-items: center;
+  }
+  
+ul>button {
+    margin-left: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
