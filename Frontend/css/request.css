@@ -1,11 +1,36 @@
+input[type=text], select {
+    width: 10%;
+    padding: 5px 10px;
+    margin: 6px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 input[class=request], select {
     width: 30%;
     margin: auto;
 }
 
+button[type=button] {
+    width: 30%;
+    margin-top: 5px;
+    margin-inline: auto;
+    padding: 5px 10px;
+    border: none;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[class=add] {
+    background-color:  #4CAF50;
+    color: white;
+}
+
 button[class=refresh] {
     width: 40%;
-    margin-inline: auto;
     background-color: rgb(61, 209, 165);
     color: white;
 }
