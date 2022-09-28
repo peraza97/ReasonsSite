@@ -162,3 +162,6 @@ class ReasonsController {
         return uri;
     }
 }
+
+const reasonsInstance = new ReasonsController();
+Object.freeze(reasonsInstance);

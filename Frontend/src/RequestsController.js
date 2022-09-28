@@ -115,24 +115,18 @@ class RequestsController {
     }
 
     BuildGetUri(complete) {
-        let uri = this.baseUri;
-        let params = new URLSearchParams();
-        
+        let uri = new URL(this.baseUri);
+        let paramsUri = new URLSearchParams(url.search);
+
         // Validate input
         if (typeof complete === 'boolean') {
-            params.append("complete", complete);
+            paramsUri.append("complete", complete);
         }
 
-        let paramStr = params.toString();
-        
-        if (paramStr.length === 0) {
-            uri = this.baseUri;
-        }
-        else {
-            uri = this.baseUri + '?' + paramStr;
-        }
-
-        console.log(uri);
-        return uri;
+        console.log(paramsUri);
+        return paramsUri;
     }
 }
+
+const requestsInstance = new RequestsController();
+Object.freeze(requestsInstance);

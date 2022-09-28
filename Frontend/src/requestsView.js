@@ -1,6 +1,3 @@
-const requestsInstance = new RequestsController ();
-Object.freeze(requestsInstance);
-
 function RequestsPagePreValidation() {
     CheckCookie()
 }

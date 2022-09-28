@@ -1,6 +1,3 @@
-const reasonsInstance = new ReasonsController();
-Object.freeze(reasonsInstance);
-
 const defaultErrorMessage = 'Contact your nearest bean' 
 
 // Validation
