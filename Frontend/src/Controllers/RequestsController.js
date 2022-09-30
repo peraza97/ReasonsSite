@@ -2,7 +2,7 @@ class RequestsController {
     constructor() {
         if(! RequestsController.instance){
             RequestsController.instance = this;
-            this.baseUri = APIENDPOINT;
+            this.baseUri = APIENDPOINT + 'requests';
           }
        
           return RequestsController.instance;

@@ -2,7 +2,7 @@ class ReasonsController {
     constructor() {
         if(! ReasonsController.instance){
             ReasonsController.instance = this;
-            this.baseUri = APIENDPOINT;
+            this.baseUri = APIENDPOINT + 'reasons';
           }
        
           return ReasonsController.instance;
