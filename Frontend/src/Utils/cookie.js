@@ -20,3 +20,11 @@ function GetCookie(cname) {
     }
     return "";
 }
+
+function IsCookiePresent(cname) {
+    if (GetCookie(cname) == "") {
+        console.log("Cookie not present");
+        return false
+    }
+    return true
+}

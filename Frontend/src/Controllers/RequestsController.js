@@ -2,7 +2,7 @@ class RequestsController {
     constructor() {
         if(! RequestsController.instance){
             RequestsController.instance = this;
-            this.baseUri = 'https://lq3b28bkba.execute-api.us-east-2.amazonaws.com/Development/requests';
+            this.baseUri = APIENDPOINT;
           }
        
           return RequestsController.instance;
@@ -10,7 +10,7 @@ class RequestsController {
 
     async GetRequests(complete) {
         // Get the cookie
-        let token = await GetCookie("reasonsToken");
+        let token = await GetCookie(COOKIENAME);
 
         if (token == ""){
             console.log("Login first");
@@ -38,7 +38,7 @@ class RequestsController {
 
     async AddRequest(request) {   
         // Get the cookie
-        let token = await GetCookie("reasonsToken");
+        let token = await GetCookie(COOKIENAME);
 
         if (token == "") {
             console.log("Login first");
@@ -66,7 +66,7 @@ class RequestsController {
 
     async CompleteRequest(requestId, complete) {
         // Get the cookie
-        let token = await GetCookie("reasonsToken");
+        let token = await GetCookie(COOKIENAME);
 
         if (requestId == "") {
             console.log("Cant complete empty requestId");
@@ -89,7 +89,7 @@ class RequestsController {
 
     async DeleteRequest(requestId) {   
         // Get the cookie
-        let token = await GetCookie("reasonsToken");
+        let token = await GetCookie(COOKIENAME);
 
         if (token == "") {
             console.log("Login first");

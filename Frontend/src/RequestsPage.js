@@ -1,8 +1,7 @@
-function RequestsPagePreValidation() {
-    CheckCookie()
+function RequestsPageLoginValidation() {
+    IsLoggedIn()
 }
 
-//#region Requests Page
 async function LoadIncompleteRequests() {
     let iclist = document.getElementById("RequestIncompleteList");
     iclist.replaceChildren('...')
@@ -87,4 +86,3 @@ async function RemoveRequest(requestId) {
     }
     return false;
 }
-//#endregion

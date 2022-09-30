@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="css/request.css">
 </head>
-<body onload="RequestsPagePreValidation()">
+<body onload="RequestsPageLoginValidation()">
     <div id="AddSection">
         <input id="AddField" type="text" class="request" name="Add" placeholder="Enter a request">
         <button class="add" id="AddRequestButton" type="button" onclick="AddRequest(document.getElementById('AddField').value)">Submit</button>
@@ -14,9 +14,10 @@
         <button class="refresh" id="RereshButton" type="button"  onclick="RefreshRequests()">Refresh requests</button>
     </div>
 </body>
-<script defer src="src/cookie.js"></script>
-<script async src="src/token.js"></script>
-<script async src="src/RequestsController.js"></script>
-<script async src="src/main.js"></script>
-<script async src="src/requestsView.js"></script>
+<script defer src="src/Utils/constants.js"></script>
+<script defer src="src/Utils/cookie.js"></script>
+<script async src="src/Utils/common.js"></script>
+<script async src="src/Utils/token.js"></script>
+<script async src="src/Controllers/RequestsController.js"></script>
+<script async src="src/RequestsPage.js"></script>
 </html>

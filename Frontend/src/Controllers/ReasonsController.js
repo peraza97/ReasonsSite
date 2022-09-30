@@ -2,7 +2,7 @@ class ReasonsController {
     constructor() {
         if(! ReasonsController.instance){
             ReasonsController.instance = this;
-            this.baseUri = 'https://lq3b28bkba.execute-api.us-east-2.amazonaws.com/Development/reasons';
+            this.baseUri = APIENDPOINT;
           }
        
           return ReasonsController.instance;
@@ -10,7 +10,7 @@ class ReasonsController {
 
     async GetReasons(count, seen) {
         // Get the cookie
-        let token = GetCookie("reasonsToken")
+        let token = GetCookie(COOKIENAME)
 
         if (token == ""){
             console.log("Login first");
@@ -56,7 +56,7 @@ class ReasonsController {
 
     async MarkReason(reasonId, seen){
         // Get the cookie
-        let token = GetCookie("reasonsToken")
+        let token = GetCookie(COOKIENAME)
 
         if (token == ""){
             console.log("Login first");
@@ -85,7 +85,7 @@ class ReasonsController {
 
     async ResetReasons(){ 
         // Get the cookie
-        let token = GetCookie("reasonsToken")
+        let token = GetCookie(COOKIENAME)
 
         if (token == ""){
             console.log("Login first");
@@ -111,7 +111,7 @@ class ReasonsController {
 
     async AddReason(reason){   
         // Get the cookie
-        let token = GetCookie("reasonsToken")
+        let token = GetCookie(COOKIENAME)
 
         if (token == "") {
             console.log("Login first");

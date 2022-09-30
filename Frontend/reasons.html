@@ -3,21 +3,23 @@
 <head>
     <link rel="stylesheet" href="css/index.css">
 </head>
-<body onload="ReasonsPagePreValidation()">
+<body onload="ReasonsPageLoginValidation()">
     <h1 style="text-align: center;">Reasons why I love you</h2>
     <div id="AdminSection" style="display:none">
         <input id="AddField" type="text" class="reason" name="Add" placeholder="Enter a reason to add">
-        <button class="add" id="AddReasonButton" type="button" onclick="AddReasonView(document.getElementById('AddField').value)">Add a reason</button>
-        <button class="reset" id="ResetButton" type="button"  onclick="ResetReasonsView()">Reset reasons</button>
+        <button class="add" id="AddReasonButton" type="button" onclick="AddAReason(document.getElementById('AddField').value)">Add a reason</button>
+        <button class="reset" id="ResetButton" type="button"  onclick="ResetReasons()">Reset reasons</button>
     </div>
     <div id="ReasonSection">
-        <button class="load" id="ReasonsButton" type="button" onclick="LoadReasonView()">Load a reason</button>
+        <button class="load" id="ReasonsButton" type="button" onclick="LoadAReason()">Load a reason</button>
         <div class="textBox" id="Reasonbox">I love you because ...</div>
     </div>
 
 </body>
-<script defer src="src/cookie.js"></script>
-<script async src="src/ReasonsController.js"></script>
-<script async src="src/main.js"></script>
-<script async src="src/reasonsView.js"></script>
+<script defer src="src/Utils/constants.js"></script>
+<script defer src="src/Utils/cookie.js"></script>
+<script async src="src/Utils/common.js"></script>
+<script async src="src/Utils/token.js"></script>
+<script async src="src/Controllers/ReasonsController.js"></script>
+<script async src="src/ReasonsPage.js"></script>
 </html>

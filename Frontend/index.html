@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="css/index.css">
 </head>
-<body onload="LoginPagePreValidation()">
+<body onload="CheckLogin()">
     <div id="login" class="login">
         <h1>Login</h2>
         <form id="loginForm">
@@ -23,7 +23,9 @@
         onclick="NavigateToPage('requests.html')">Go to Requests Page</button>
     </span>
 </body>
-<script defer src="src/cookie.js"></script>
-<script async src="src/token.js"></script>
-<script async src="src/main.js"></script>
+<script defer src="src/Utils/constants.js"></script>
+<script defer src="src/Utils/cookie.js"></script>
+<script async src="src/Utils/common.js"></script>
+<script async src="src/Utils/token.js"></script>
+<script async src="src/LoginPage.js"></script>
 </html>
