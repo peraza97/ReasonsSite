@@ -43,11 +43,14 @@ def GET(event, context, client):
     if reasonId is not None:
         response = client.GetItem(reasonId)
     else:
-        count = int(queryParams.get('count', 1))
         seen = json.loads(queryParams.get('seen', "false").lower())
         data = client.QueryItems(seen)
         if data:
-            response = random.sample(data, min(count, len(data)))
+            count = int(queryParams.get('count', -1))
+            if count != -1:
+                response = random.sample(data, min(count, len(data)))
+            else:
+                response = data
 
     return response
 

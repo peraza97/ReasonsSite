@@ -39,6 +39,29 @@ async function LoadAReason() {
     }
 }
 
+async function GetSeenReasons() {
+    let iclist = document.getElementById("SeenReasons");
+    iclist.replaceChildren('...')
+
+    let reqs = await reasonsInstance.GetReasons(0, true);
+    console.log('Found ' + reqs.length + ' seen reasons(s)');
+    iclist.replaceChildren('')
+
+    reqs.forEach((req) => {
+        let listItem = document.createElement("ul");
+        listItem.id = req.reasonId;
+
+        // Item span
+        let item = document.createElement("span")
+        item.style.margin = "auto";
+        item.style.textAlign = "center";
+        item.innerText = req.reason;
+
+        listItem.appendChild(item)
+        iclist.appendChild(listItem); 
+    })
+}
+
 async function ResetReasons() {
     let reasonTextBox = document.getElementById("Reasonbox");
     ShowReasonBoxText(reasonTextBox, "Resetting reasons");

@@ -141,7 +141,7 @@ class ReasonsController {
         let params = new URLSearchParams();
         
         // Validate input
-        if (count && count.length !== 0 ) {
+        if (!isNaN(count) && count > 0) {
             params.append("count", count);
         }
 

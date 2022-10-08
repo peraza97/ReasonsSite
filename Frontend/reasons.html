@@ -14,7 +14,11 @@
         <button class="load" id="ReasonsButton" type="button" onclick="LoadAReason()">Load a reason</button>
         <div class="textBox" id="Reasonbox">I love you because ...</div>
     </div>
-
+    <div>
+        <h3 style="margin-bottom:1px;text-align: center;">Seen Reasons</h3>
+        <div class="listBox" id="SeenReasons"></div>
+        <button class="refresh" id="RereshButton" type="button"  onclick="GetSeenReasons()">View older reasons</button>
+    </div>
 </body>
 <script defer src="src/Utils/constants.js"></script>
 <script defer src="src/Utils/cookie.js"></script>
